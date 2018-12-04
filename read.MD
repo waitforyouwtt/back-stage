@@ -13,4 +13,10 @@
     1.引入eureka server 依赖
     2.启动类加上注解：@EnableEurekaServer 开启服务注册与发现
     3.浏览器访问[http://127.0.0.1:8761/]
-3.创建服务提供者    
+3.创建服务提供者Provider[user-server]
+    1.引入父项目的依赖
+    2.引入eureka依赖
+    3.启动类加上注解：@EnableEurekaClient 开启服务注册功能
+    4.加controller
+    5.依次启动eureka-server user-server
+    6.浏览器访问[http://127.0.0.1:8762/hi?name=jie]  
