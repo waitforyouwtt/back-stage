@@ -2,6 +2,7 @@ package com.yidiandian.controller;
 
 import com.yidiandian.entity.UserInfo;
 import com.yidiandian.service.UserInfoService;
+import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.*;
@@ -24,7 +25,7 @@ public class UserController {
     public String home(@RequestParam String name){
         return "hi:"+name+"how are you?"+port;
     }
-
+    @ApiOperation(notes = "保存用户信息",value = "保存用户信息")
     @PostMapping("/save-user")
     public UserInfo save(@RequestBody  UserInfo userInfo){
         UserInfo userInfo1 = userInfoService.save(userInfo);
