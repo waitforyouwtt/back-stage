@@ -1,9 +1,10 @@
 package com.yidiandian.controller;
 
+import com.yidiandian.entity.UserInfo;
+import com.yidiandian.service.UserInfoService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 /**
  * @Author: 一点点
@@ -16,9 +17,18 @@ public class UserController {
     @Value("${server.port}")
     String port;
 
+    @Autowired
+    UserInfoService userInfoService;
+
     @GetMapping("/hi")
     public String home(@RequestParam String name){
         return "hi:"+name+"how are you?"+port;
+    }
+
+    @PostMapping("/save-user")
+    public UserInfo save(@RequestBody  UserInfo userInfo){
+        UserInfo userInfo1 = userInfoService.save(userInfo);
+        return userInfo1;
     }
 
 }

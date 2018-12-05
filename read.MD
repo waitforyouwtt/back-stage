@@ -19,4 +19,11 @@
     3.启动类加上注解：@EnableEurekaClient 开启服务注册功能
     4.加controller
     5.依次启动eureka-server user-server
-    6.浏览器访问[http://127.0.0.1:8762/hi?name=jie]  
+    6.浏览器访问[http://127.0.0.1:8762/hi?name=jie]
+    7.引入spring-data-jpa
+    8.引入mysql
+    9.引入swagger
+    10.引入lombok
+    11.在实体类上直接加validate校验
+    11.postman测试：依次启动eureka-server user-server
+    
