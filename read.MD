@@ -26,4 +26,20 @@
     10.引入lombok
     11.在实体类上直接加validate校验
     11.postman测试：依次启动eureka-server user-server
+    12.http://localhost:8762/save-user
+      {
+          "id": 1,
+          "username": "张杰",
+          "password": "123456789",
+          "idNumber": "411421199308236037",
+          "nickname": "1fafd",
+          "birthday": null,
+          "address": "河南省沈丘县城",
+          "deleteFlag": true,
+          "createTime": null,
+          "updateTime": null
+      }
+    13.引入定时任务依赖pom.xml,定时任务配置文件，在启动类上引入定时任务文件
+    14.编写task job
+    15.依次启动eureka-server user-server,查看效果   
     
