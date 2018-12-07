@@ -44,6 +44,13 @@
     14.编写task job
     15.依次启动eureka-server user-server,查看效果
     16.加入redis
-    17.编写：EncodingMysqlConfig ，解决jpa 创建表中文编码问题(MySQL) 
+    17.编写：EncodingMysqlConfig[yml文件引用] ，解决jpa 创建表中文编码问题(MySQL) 
+       jpa:
+           hibernate:
+             ddl-auto: update
+           show-sql: true
+           properties:
+             hibernate:
+               dialect: com.yidiandian.config.EncodingMysqlConfig  #配置类全路径
        
     
