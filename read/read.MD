@@ -40,6 +40,10 @@
           "updateTime": null
       }
     13.引入定时任务依赖pom.xml,定时任务配置文件，在启动类上引入定时任务文件
+        [MySQL 先执行tables_mysql_infodb.sql]
     14.编写task job
-    15.依次启动eureka-server user-server,查看效果   
+    15.依次启动eureka-server user-server,查看效果
+    16.加入redis
+    17.编写：EncodingMysqlConfig ，解决jpa 创建表中文编码问题(MySQL) 
+       
     
