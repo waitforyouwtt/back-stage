@@ -3,14 +3,16 @@ package com.yidiandian;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cloud.netflix.eureka.EnableEurekaClient;
-import org.springframework.context.annotation.ImportResource;
+import org.springframework.cloud.netflix.feign.EnableFeignClients;
+import org.springframework.cloud.netflix.hystrix.dashboard.EnableHystrixDashboard;
 
-@ImportResource(locations = {"classpath:quartz.xml"})
+@EnableHystrixDashboard
+@EnableFeignClients
 @EnableEurekaClient
 @SpringBootApplication
-public class UserServerApplication {
+public class GoodsServerApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(UserServerApplication.class, args);
+		SpringApplication.run(GoodsServerApplication.class, args);
 	}
 }

@@ -2,6 +2,8 @@
 ###### 本文将是对以往的学习的总结。以一个工程，多模块的形式开发模式，为了避免jar 包版本冲突问题，统一采用
 ######spring boot 1.5.3.RELEASE  <spring-cloud.version>Dalston.SR1</spring-cloud.version>,配置文件采用yml形式。
 
+###### http://www.cnblogs.com/cc11001100/p/7456145.html[banner.txt]
+
 1.创建一个maven 工程[引入基本相关的jar包,子模块依赖父模块的pom文件，以后不再赘言]
   	<parent>
     		<groupId>com.yidiandian</groupId>
@@ -52,5 +54,23 @@
            properties:
              hibernate:
                dialect: com.yidiandian.config.EncodingMysqlConfig  #配置类全路径
+    18.创建服务提供者Provider[goods-server]
+       引入父依赖，feign,Hystrix,dashboard
+    19.查看效果：
+       启动一个eureka server 端口8761
+       启动两个user-server 端口8762 8763
+       浏览器访问[http://localhost:8765/hi],轮询显示：
+       1.在接口上加fallback 快速失败的处理类。该处理类是作为feign熔断器的逻辑处理类，必须实现被@FeignClient修改的接口。
+       2.该类需要实现EurekaClientFeign接口.
+       3.查看效果：
+           1：启动一个eureka server 端口8761
+           2：启动两个eureka client 端口8762 8763 
+              java -jar .\user-server-0.0.1-SNAPSHOT.jar --server.port=8762
+              java -jar .\user-server-0.0.1-SNAPSHOT.jar --server.port=8763
+           3：启动goods-server
+           4: http://127.0.0.1:8765/hi [依次轮询8762，8763 端口] 
+           5: 结果显示feign client  有负载均衡的能力
+           6:关闭eureka client[模拟服务异常] (执行快速失败)  
+                     
        
     
