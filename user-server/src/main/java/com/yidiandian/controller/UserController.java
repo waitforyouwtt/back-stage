@@ -31,12 +31,23 @@ public class UserController {
 
 
     @ApiOperation(notes = "保存用户信息",value = "保存用户信息")
-    @PostMapping("/save-user")
+    @PostMapping("/register-user")
     public UserInfo save(@RequestBody  UserInfo userInfo){
-        UserInfo userInfo1 = userInfoService.save(userInfo);
+        UserInfo checkUser  = userInfoService.checkUser(userInfo);
+        if(checkUser != null){
+          return checkUser;
+        }
+        UserInfo result = userInfoService.save(userInfo);
         redisDao.setKey("name",userInfo.getUsername());
         redisDao.setKey("age",userInfo.getIdNumber());
-        return userInfo1;
+        return result;
+    }
+
+    @ApiOperation(value = "用户登陆",notes = "用户登陆")
+    @GetMapping("/login")
+    public UserInfo login(@RequestBody UserInfo userInfo){
+        UserInfo result = userInfoService.login(userInfo);
+        return null;
     }
 
 }

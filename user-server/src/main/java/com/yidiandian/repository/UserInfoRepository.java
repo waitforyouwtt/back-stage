@@ -9,4 +9,13 @@ import org.springframework.data.jpa.repository.JpaRepository;
  * @Version 1.0
  */
 public interface UserInfoRepository extends JpaRepository<UserInfo,Long>{
+    /**
+     * 根据用户名/昵称 和密码进行登陆
+     * @return
+     */
+    UserInfo findByUsernameOrNicknameAndPassword(String username ,String password);
+    /**
+     * 根据身份证号码和用户名判断用户是否已注册
+     */
+    UserInfo findByIdNumberAndUsername(String idNumber,String username);
 }

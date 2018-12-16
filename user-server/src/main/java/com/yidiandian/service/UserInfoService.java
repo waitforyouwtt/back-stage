@@ -13,5 +13,14 @@ public interface UserInfoService {
      * @param userInfo
      * @return
      */
-    public UserInfo save(UserInfo userInfo);
+     UserInfo save(UserInfo userInfo);
+    /**
+     * 用户登陆
+     */
+     UserInfo login(UserInfo userInfo);
+    /**
+     * 判断是否已注册
+     */
+     UserInfo checkUser(UserInfo userInfo);
+
 }
