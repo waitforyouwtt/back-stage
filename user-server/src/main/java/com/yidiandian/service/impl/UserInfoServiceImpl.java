@@ -32,9 +32,9 @@ public class UserInfoServiceImpl implements UserInfoService {
     public UserInfo login(UserInfo userInfo) {
         UserInfo result = null;
         if(StringUtils.isNotBlank(userInfo.getUsername())){
-            result = userInfoRepository.findByUsernameOrNicknameAndPassword(userInfo.getUsername(),userInfo.getPassword());
+            result = userInfoRepository.findByUsernameAndPassword(userInfo.getUsername(),userInfo.getPassword());
         }else{
-            result = userInfoRepository.findByUsernameOrNicknameAndPassword(userInfo.getNickname(),userInfo.getPassword());
+            result = userInfoRepository.findByNicknameAndPassword(userInfo.getNickname(),userInfo.getPassword());
         }
         return result;
     }
