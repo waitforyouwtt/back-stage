@@ -8,6 +8,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.util.HashMap;
+import java.util.Map;
+
 /**
  * @Author: 一点点
  * @Date: 2018/12/4 23:11
@@ -41,13 +48,6 @@ public class UserController {
         redisDao.setKey("name",userInfo.getUsername());
         redisDao.setKey("age",userInfo.getIdNumber());
         return result;
-    }
-
-    @ApiOperation(value = "用户登陆",notes = "用户登陆")
-    @GetMapping("/login")
-    public UserInfo login(@RequestBody UserInfo userInfo){
-        UserInfo result = userInfoService.login(userInfo);
-        return null;
     }
 
 }
