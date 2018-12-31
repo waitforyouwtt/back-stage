@@ -94,13 +94,23 @@ public class UserInfoController {
             result.put("rCode","1002");
             result.put("message","验证码已过期，重新获取");
             return result;
-        } else {
+        } else if(getUserInfo == null){
+            request.setAttribute("errmsg", "用户名或密码错误");
+            result.put("rCode","1003");
+            result.put("message","用户名或密码错误");
+            return result;
+        }else  {
             //验证成功，删除存储的验证码
             session.removeAttribute("verCode");
             result.put("rCode","200");
             result.put("message","登陆成功");
             return result;
         }
+    }
+
+    @RequestMapping(value = "/welcome",method = RequestMethod.GET)
+    public String welcome(){
+        return "welcome";
     }
 
 }
