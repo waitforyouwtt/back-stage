@@ -1,6 +1,8 @@
 package com.yidiandian.controller;
 
+import com.yidiandian.entity.LoginLog;
 import com.yidiandian.entity.UserInfo;
+import com.yidiandian.service.LoginLogService;
 import com.yidiandian.service.UserInfoService;
 import com.yidiandian.utils.VerifyCodeUtils;
 import io.swagger.annotations.ApiOperation;
@@ -8,6 +10,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.ServletException;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -28,6 +32,8 @@ public class UserInfoController {
 
     @Autowired
     UserInfoService userInfoService;
+    @Autowired
+    LoginLogService loginLogService;
 
 
     @GetMapping("/")
@@ -81,7 +87,6 @@ public class UserInfoController {
         long now = LocalDateTime.now().atZone(ZoneId.systemDefault()).toInstant().toEpochMilli();
 
         String nickName = userInfo.getNickname();
-        String password = userInfo.getPassword();
         UserInfo getUserInfo = userInfoService.login(userInfo);
 
         if(verCodeStr == null || code == null || code.isEmpty() || !verCodeStr.equalsIgnoreCase(code)){
@@ -89,7 +94,7 @@ public class UserInfoController {
             result.put("rCode","1001");
             result.put("message","验证码错误");
             return result;
-        } else if((now-past)/1000/60>5){
+        } else if((now-past)/1000/60 >5){
             request.setAttribute("errmsg", "验证码已过期，重新获取");
             result.put("rCode","1002");
             result.put("message","验证码已过期，重新获取");
@@ -100,6 +105,7 @@ public class UserInfoController {
             result.put("message","用户名或密码错误");
             return result;
         }else  {
+            saveLoginLog(nickName,request);
             //验证成功，删除存储的验证码
             session.removeAttribute("verCode");
             result.put("rCode","200");
@@ -107,10 +113,50 @@ public class UserInfoController {
             return result;
         }
     }
-
+    @ApiOperation(value = "用户成功登陆，进入首页桌面显示")
     @RequestMapping(value = "/welcome",method = RequestMethod.GET)
     public String welcome(){
         return "welcome";
+    }
+
+    @ApiOperation(value = "用户退出登陆")
+    @GetMapping("/loginOut")
+    public void loginOut(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        // 干掉cookie和session
+        HttpSession session = request.getSession();
+        session.removeAttribute("user");
+
+        Cookie[] cookies = request.getCookies();
+        if (cookies != null && cookies.length > 0) {
+            for (Cookie c : cookies) {
+                if ("autoLogin".equals(c.getName())) {
+                    //设置cookie存活时间为0
+                    c.setMaxAge(0);
+                    //将cookie响应到前台
+                    response.addCookie(c);
+                    break;
+                }
+            }
+        }
+        // 重定向到首页
+        response.sendRedirect(request.getContextPath() + "/index.html");
+    }
+
+    private void saveLoginLog(String nickname,HttpServletRequest request){
+        LoginLog log = new LoginLog();
+        log.setNickname(nickname);
+        log.setLoginTime(LocalDateTime.now());
+        log.setLastLoginTime(LocalDateTime.now());
+        log.setLoginIp(request.getRemoteAddr());
+        log.setLastLoginIp(request.getRemoteAddr());
+        LoginLog loginLog = loginLogService.findByLoginNickName(nickname);
+        if(loginLog != null){
+            log.setLoginNum(loginLog.getLoginNum()+1);
+        }else{
+            log.setLoginNum(1);
+        }
+        loginLogService.save(log);
     }
 
 }
