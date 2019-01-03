@@ -20,6 +20,7 @@ import java.io.OutputStream;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -157,6 +158,13 @@ public class UserInfoController {
             log.setLoginNum(1);
         }
         loginLogService.save(log);
+    }
+
+    @GetMapping("/findUserInfos")
+    public String findUserInfos(UserInfo userInfo, HttpServletRequest request) {
+        List<UserInfo> list = userInfoService.findAll();
+        request.setAttribute("list", list);
+        return "userInfoList";
     }
 
 }

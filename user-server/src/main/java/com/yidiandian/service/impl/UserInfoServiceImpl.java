@@ -6,6 +6,10 @@ import com.yidiandian.service.UserInfoService;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.awt.print.Pageable;
+import java.util.List;
+
 /**
  * @Author: 一点点
  * @Date: 2018/12/5 22:52
@@ -47,5 +51,16 @@ public class UserInfoServiceImpl implements UserInfoService {
     @Override
     public UserInfo checkUser(UserInfo userInfo) {
         return userInfoRepository.findByIdNumberAndUsername(userInfo.getIdNumber(),userInfo.getUsername());
+    }
+
+    /**
+     * 查询用户集合
+     *
+     * @param
+     */
+    @Override
+    public List<UserInfo> findAll() {
+
+        return userInfoRepository.findAll();
     }
 }

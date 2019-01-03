@@ -1,7 +1,11 @@
 package com.yidiandian.repository;
 
 import com.yidiandian.entity.UserInfo;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
+
+import java.util.List;
 
 /**
  * @Author: 一点点
@@ -26,4 +30,6 @@ public interface UserInfoRepository extends JpaRepository<UserInfo,Long>{
      * 根据身份证号码和用户名判断用户是否已注册
      */
     UserInfo findByIdNumberAndUsername(String idNumber,String username);
+
+    List<UserInfo> findAllByUsernameAndNicknameAndAddress(String username,String nickname,String address);
 }
