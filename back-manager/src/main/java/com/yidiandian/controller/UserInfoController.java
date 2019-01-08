@@ -1,5 +1,6 @@
 package com.yidiandian.controller;
 
+import com.yidiandian.dto.UserInfoDto;
 import com.yidiandian.entity.LoginLog;
 import com.yidiandian.entity.UserInfo;
 import com.yidiandian.service.LoginLogService;
@@ -161,8 +162,8 @@ public class UserInfoController {
     }
 
     @GetMapping("/findUserInfos")
-    public String findUserInfos(UserInfo userInfo, HttpServletRequest request) {
-        List<UserInfo> list = userInfoService.findAll();
+    public String findUserInfos(UserInfoDto userInfoDto, HttpServletRequest request) {
+        List<UserInfoDto> list = userInfoService.findAll(userInfoDto);
         request.setAttribute("list", list);
         return "userInfoList";
     }

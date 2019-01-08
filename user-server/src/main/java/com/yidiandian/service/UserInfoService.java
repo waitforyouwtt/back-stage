@@ -1,5 +1,6 @@
 package com.yidiandian.service;
 
+import com.yidiandian.dto.UserInfoDto;
 import com.yidiandian.entity.UserInfo;
 
 import java.awt.print.Pageable;
@@ -29,6 +30,8 @@ public interface UserInfoService {
      * 查询用户集合
      */
     List<UserInfo> findAll();
+
+    List<UserInfoDto> findAll(UserInfoDto userInfoDto);
 
 
 }

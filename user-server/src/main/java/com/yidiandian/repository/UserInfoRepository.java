@@ -1,8 +1,10 @@
 package com.yidiandian.repository;
 
+import com.yidiandian.dto.UserInfoDto;
 import com.yidiandian.entity.UserInfo;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;
@@ -32,4 +34,6 @@ public interface UserInfoRepository extends JpaRepository<UserInfo,Long>{
     UserInfo findByIdNumberAndUsername(String idNumber,String username);
 
     List<UserInfo> findAllByUsernameAndNicknameAndAddress(String username,String nickname,String address);
+
+    List<UserInfoDto> findAll(Specification<UserInfoDto> params);
 }

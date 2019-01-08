@@ -28,8 +28,8 @@
 		<input type="text" onfocus="WdatePicker({ maxDate:'#F{$dp.$D(\'datemax\')||\'%y-%M-%d\'}' })" id="datemin" class="input-text Wdate" style="width:120px;">
 		-
 		<input type="text" onfocus="WdatePicker({ minDate:'#F{$dp.$D(\'datemin\')}',maxDate:'%y-%M-%d' })" id="datemax" class="input-text Wdate" style="width:120px;">
-		<input type="text" class="input-text" style="width:250px" placeholder="输入会员名称、电话、邮箱" id="" name="">
-		<button type="submit" class="btn btn-success radius" id="" name=""><i class="Hui-iconfont">&#xe665;</i> 搜用户</button>
+		<input type="text" class="input-text" style="width:250px" placeholder="输入会员名称、电话、邮箱" id="username" name="">
+		<button type="submit" class="btn btn-success radius" id="searchBtn" name=""><i class="Hui-iconfont">&#xe665;</i> 搜用户</button>
 	</div>
 	<div class="cl pd-5 bg-1 bk-gray mt-20"> <span class="l"><a href="javascript:;" onclick="datadel()" class="btn btn-danger radius"><i class="Hui-iconfont">&#xe6e2;</i> 批量删除</a> <a href="javascript:;" onclick="member_add('添加用户','member-add.html','','510')" class="btn btn-primary radius"><i class="Hui-iconfont">&#xe600;</i> 添加用户</a></span> <span class="r">共有数据：<strong>88</strong> 条</span> </div>
 	<div class="mt-20">
@@ -48,8 +48,8 @@
 				<th width="100">操作</th>
 			</tr>
 		</thead>
-		<tbody>
-			<tr class="text-c">
+		<tbody id="pageDatas">
+			<!--<tr class="text-c">
 				<td><input type="checkbox" value="1" name=""></td>
 				<td>1</td>
 				<td><u style="cursor:pointer" class="text-primary" onclick="member_show('张三','member-show.html','10001','360','400')">张三</u></td>
@@ -72,7 +72,7 @@
 					<a title="删除" href="javascript:;" onclick="member_del(this,'1')" class="ml-5" style="text-decoration:none">
 					<i class="Hui-iconfont">&#xe6e2;</i></a>
 				    </td>
-			</tr>
+			</tr>-->
 		</tbody>
 	</table>
 	</div>
@@ -97,6 +97,38 @@ $(function(){
 		  {"orderable":false,"aTargets":[0,8,9]}// 制定列不参与排序
 		]
 	});
+
+	$("#searchBtn").bind('click',function () {
+        var datemin = $("#datemin").val();
+        var datemax = $("#datemax").val();
+        var username= $("#username").val();
+        var url = "/findUserInfos";
+        $.ajax({
+            url : url,
+            type : 'get',
+            dataType : 'json',
+            data : {
+                'datemin' : datemin,
+                'datemax' : datemax,
+                'username':username
+            },
+            success:function(result){
+                //debugger
+                var code = result.rCode;
+                var message = result.message;
+                if("200" == code){
+                    var url = "/index";
+                    window.location.href=url;
+                }else {
+
+                }
+            }
+        });
+	    //pageDatas
+    })
+
+
+
 	
 });
 /*用户-添加*/
