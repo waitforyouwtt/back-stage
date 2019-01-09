@@ -49,6 +49,7 @@
 			</tr>
 		</thead>
 		<tbody id="pageDatas">
+
 			<!--<tr class="text-c">
 				<td><input type="checkbox" value="1" name=""></td>
 				<td>1</td>
@@ -78,7 +79,8 @@
 	</div>
 </div>
 <!--_footer 作为公共模版分离出去-->
-<script type="text/javascript" src="lib/jquery/1.9.1/jquery.min.js"></script> 
+<!--<script type="text/javascript" src="lib/jquery/1.9.1/jquery.min.js"></script> -->
+<script type="text/javascript" src="js/jquery-1.8.3.js"></script>
 <script type="text/javascript" src="lib/layer/2.4/layer.js"></script>
 <script type="text/javascript" src="h-ui/js/H-ui.min.js"></script>
 <script type="text/javascript" src="h-ui.admin/js/H-ui.admin.js"></script> <!--/_footer 作为公共模版分离出去-->
@@ -99,38 +101,45 @@ $(function(){
 	});
 
 	$("#searchBtn").bind('click',function () {
-        var datemin = $("#datemin").val();
-        var datemax = $("#datemax").val();
-        var username= $("#username").val();
-        var url = "/findUserInfos";
-        $.ajax({
-            url : url,
-            type : 'get',
-            dataType : 'json',
-            data : {
-                'datemin' : datemin,
-                'datemax' : datemax,
-                'username':username
-            },
-            success:function(result){
-                //debugger
-                var code = result.rCode;
-                var message = result.message;
-                if("200" == code){
-                    var url = "/index";
-                    window.location.href=url;
-                }else {
-
-                }
-            }
-        });
-	    //pageDatas
+            var datemin = $("#datemin").val();
+            var datemax = $("#datemax").val();
+            var username= $("#username").val();
+            pageData(datemin,datemax,username);
     })
 
+
+    pageData();
 
 
 	
 });
+
+function pageData(datemin,datemax,username) {
+    var url = "/findUserInfos";
+    $.ajax({
+        url : url,
+        type : 'get',
+        dataType : 'json',
+        data : {
+            'datemin' : datemin,
+            'datemax' : datemax,
+            'username':username
+        },
+        success:function(data){
+            var str = "";
+            for(var i=0;i<data.length;i++){
+                str += "<tr>" +
+                    "<td>" + data[i].id + "</td>" +
+                    "<td>" + data[i].id + "</td>" +
+                    "<td>" + data[i].id + "</td>" +
+                    "<td>" + data[i].id + "</td>" +
+                    "</tr>";
+            }
+            console.log(str);
+            $("#pageDatas").html(str);
+        }
+    });
+}
 /*用户-添加*/
 function member_add(title,url,w,h){
 	layer_show(title,url,w,h);

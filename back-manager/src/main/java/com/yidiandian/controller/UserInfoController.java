@@ -9,7 +9,9 @@ import com.yidiandian.utils.VerifyCodeUtils;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.Cookie;
@@ -161,11 +163,16 @@ public class UserInfoController {
         loginLogService.save(log);
     }
 
+    @GetMapping("/findUserInfoList")
+    public ModelAndView findUserInfos(Model model,UserInfoDto userInfoDto){
+        ModelAndView modelAndView = new ModelAndView("userInfoList");
+        return modelAndView;
+    }
+
     @GetMapping("/findUserInfos")
-    public String findUserInfos(UserInfoDto userInfoDto, HttpServletRequest request) {
-        List<UserInfoDto> list = userInfoService.findAll(userInfoDto);
-        request.setAttribute("list", list);
-        return "userInfoList";
+    @ResponseBody
+    public List<UserInfoDto> findUserInfos(UserInfoDto userInfoDto, HttpServletRequest request) {
+        return userInfoService.findAll(userInfoDto);
     }
 
 }
