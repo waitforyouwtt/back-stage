@@ -5,6 +5,7 @@ import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 import lombok.ToString;
 import org.hibernate.annotations.ColumnDefault;
+import org.hibernate.validator.constraints.Email;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
@@ -34,19 +35,35 @@ public class UserInfo implements Serializable {
     @ApiModelProperty(name = "用户姓名，且是中文")
     @Column(nullable = false,unique = true)
     @Pattern(regexp = "^[\u4E00-\u9FA5]+$",message = "用户名格式错误")
+    @Size(max = 30)
     private String username;
 
     @ApiModelProperty(name = "用户密码")
     @Column
     @Size(min =8,max = 20,message = "密码长度为8-20之间")
     private String password;
+    @ApiModelProperty(name = "性别")
+    @Column
+    @Size(max = 4)
+    private String sex;
+    @ApiModelProperty(name = "用户密码")
+    @Column
+    @Pattern(regexp = "^[150[0-9]+]{11}", message = "手机号格式错误")
+    @Size(max = 15)
+    private String phone;
+    /** 邮箱 */
+    @Email(message = "邮箱格式错误")
+    @Size(max = 30)
+    private String mail;
 
     @ApiModelProperty(name = "身份证号码")
     @Column(unique = true)
+    @Size(max = 20)
     private String idNumber;
 
     @ApiModelProperty(name = "用户昵称")
     @Pattern(regexp = "^[a-z0-9A-Z_-]{3,15}$",message = "昵称格式错误")
+    @Size(max = 30)
     private String nickname;
 
     @ApiModelProperty(name = "用户生日")
