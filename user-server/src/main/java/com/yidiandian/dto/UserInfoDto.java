@@ -48,7 +48,7 @@ public class UserInfoDto {
 
     private String mail;
 
-    private boolean deleteFlag;
+    private String deleteFlag;
 
     @DateTimeFormat(pattern  ="yyyy-MM-dd")
     private LocalDateTime createTime;

@@ -188,7 +188,11 @@ public class UserInfoController {
             infoDto.setAddress(dto.getAddress());
             infoDto.setMail(dto.getMail());
             infoDto.setBirthdayS(DateUtils.localDate2TimeString(dto.getBirthday()));
-            infoDto.setDeleteFlag(dto.isDeleteFlag());
+            if(dto.isDeleteFlag() == true){
+                infoDto.setDeleteFlag("启用");
+            }else{
+                infoDto.setDeleteFlag("禁用");
+            }
             infoDto.setCreateTimeS(DateUtils.localDate2TimeString(dto.getCreateTime()));
             infoDto.setUpdateTimeS(DateUtils.localDate2TimeString(dto.getUpdateTime()));
             result.add(infoDto);
