@@ -1,7 +1,9 @@
 package com.yidiandian;
 
 import com.yidiandian.entity.LoginLog;
+import com.yidiandian.entity.UserInfo;
 import com.yidiandian.service.LoginLogService;
+import com.yidiandian.service.UserInfoService;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,6 +11,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import javax.servlet.http.HttpServletRequest;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 @RunWith(SpringRunner.class)
@@ -17,6 +20,18 @@ public class UserServerApplicationTests {
 
 	@Autowired
 	LoginLogService logService;
+
+	@Autowired
+	private UserInfoService userInfoService;
+	@Test
+	public void addUserInfo(){
+		UserInfo userInfo = new UserInfo();
+		userInfo.setUserName("张洁");
+		userInfo.setNickName("xiaopangzia");
+		userInfo.setAddress("沈丘");
+		userInfo.setBirthday(LocalDate.now());
+		userInfoService.save(userInfo);
+	}
 
 	@Test
 	public void contextLoads() {

@@ -19,7 +19,7 @@ public interface UserInfoRepository extends JpaRepository<UserInfo,Long>{
      * 根据用户名/昵称 和密码进行登陆
      * @return
      */
-    UserInfo findByUsernameAndPassword(String username ,String password);
+    UserInfo findByUserNameAndPassword(String username ,String password);
 
     /**
      * 根据用户名/昵称 和密码进行登陆
@@ -27,13 +27,13 @@ public interface UserInfoRepository extends JpaRepository<UserInfo,Long>{
      * @param password
      * @return
      */
-    UserInfo findByNicknameAndPassword(String nickname,String password);
+    UserInfo findByNickNameAndPassword(String nickname,String password);
     /**
      * 根据身份证号码和用户名判断用户是否已注册
      */
-    UserInfo findByIdNumberAndUsername(String idNumber,String username);
+    UserInfo findByIdNumberAndUserName(String idNumber,String username);
 
-    List<UserInfo> findAllByUsernameAndNicknameAndAddress(String username,String nickname,String address);
+    List<UserInfo> findAllByUserNameAndNickNameAndAddress(String username,String nickname,String address);
 
     List<UserInfoDto> findAll(Specification<UserInfoDto> params);
 }

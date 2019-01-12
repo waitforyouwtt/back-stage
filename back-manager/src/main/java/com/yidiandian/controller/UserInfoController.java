@@ -90,7 +90,7 @@ public class UserInfoController {
         long past = localDateTime.atZone(ZoneId.systemDefault()).toInstant().toEpochMilli();
         long now = LocalDateTime.now().atZone(ZoneId.systemDefault()).toInstant().toEpochMilli();
 
-        String nickName = userInfo.getNickname();
+        String nickName = userInfo.getNickName();
         UserInfo getUserInfo = userInfoService.login(userInfo);
 
         if(verCodeStr == null || code == null || code.isEmpty() || !verCodeStr.equalsIgnoreCase(code)){

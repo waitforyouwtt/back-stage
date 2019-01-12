@@ -36,7 +36,7 @@ public class UserInfo implements Serializable {
     @Column(nullable = false,unique = true)
     @Pattern(regexp = "^[\u4E00-\u9FA5]+$",message = "用户名格式错误")
     @Size(max = 30)
-    private String username;
+    private String userName;
 
     @ApiModelProperty(name = "用户密码")
     @Column
@@ -64,7 +64,7 @@ public class UserInfo implements Serializable {
     @ApiModelProperty(name = "用户昵称")
     @Pattern(regexp = "^[a-z0-9A-Z_-]{3,15}$",message = "昵称格式错误")
     @Size(max = 30)
-    private String nickname;
+    private String nickName;
 
     @ApiModelProperty(name = "用户生日")
     @DateTimeFormat(pattern  ="yyyy-MM-dd")

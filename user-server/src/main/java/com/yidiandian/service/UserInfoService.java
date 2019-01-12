@@ -33,5 +33,7 @@ public interface UserInfoService {
 
     List<UserInfoDto> findAll(UserInfoDto userInfoDto);
 
+    void delete();
+
 
 }

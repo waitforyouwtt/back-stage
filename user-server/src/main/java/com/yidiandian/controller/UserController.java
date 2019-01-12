@@ -45,7 +45,7 @@ public class UserController {
           return checkUser;
         }
         UserInfo result = userInfoService.save(userInfo);
-        redisDao.setKey("name",userInfo.getUsername());
+        redisDao.setKey("name",userInfo.getUserName());
         redisDao.setKey("age",userInfo.getIdNumber());
         return result;
     }

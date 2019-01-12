@@ -43,10 +43,10 @@ public class UserInfoServiceImpl implements UserInfoService {
     @Override
     public UserInfo login(UserInfo userInfo) {
         UserInfo result = null;
-        if(StringUtils.isNotBlank(userInfo.getUsername())){
-            result = userInfoRepository.findByUsernameAndPassword(userInfo.getUsername(),userInfo.getPassword());
+        if(StringUtils.isNotBlank(userInfo.getUserName())){
+            result = userInfoRepository.findByUserNameAndPassword(userInfo.getUserName(),userInfo.getPassword());
         }else{
-            result = userInfoRepository.findByNicknameAndPassword(userInfo.getNickname(),userInfo.getPassword());
+            result = userInfoRepository.findByNickNameAndPassword(userInfo.getNickName(),userInfo.getPassword());
         }
         return result;
     }
@@ -58,7 +58,7 @@ public class UserInfoServiceImpl implements UserInfoService {
      */
     @Override
     public UserInfo checkUser(UserInfo userInfo) {
-        return userInfoRepository.findByIdNumberAndUsername(userInfo.getIdNumber(),userInfo.getUsername());
+        return userInfoRepository.findByIdNumberAndUserName(userInfo.getIdNumber(),userInfo.getUserName());
     }
 
     /**
@@ -101,5 +101,10 @@ public class UserInfoServiceImpl implements UserInfoService {
         };
         resultList = this.userInfoRepository.findAll(querySpecifi);
         return resultList;
+    }
+
+    @Override
+    public void delete() {
+        userInfoRepository.deleteAll();
     }
 }
