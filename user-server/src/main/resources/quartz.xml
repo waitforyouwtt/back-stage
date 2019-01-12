@@ -24,8 +24,9 @@
         </property>
         <!--cron表达式-->
         <property name="cronExpression">
-            <!--<value>0/10 * * * * ?</value>-->
-            <value>0 0 1 * * ?</value>
+            <value>0 0 12 * * ?</value>
+           <!-- <value>0/10 * * * * ?</value>-->
+          <!--  <value>0 0 1 * * ?</value>-->
         </property>
     </bean>
 

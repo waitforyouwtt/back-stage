@@ -13,6 +13,7 @@ import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 import java.io.Serializable;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 /**
  * @Author: 一点点
@@ -79,10 +80,13 @@ public class UserInfo implements Serializable {
     private boolean deleteFlag;
 
     @ApiModelProperty(value = "创建时间")
-    private LocalDate createTime;
+    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    @Column(columnDefinition="timestamp default current_timestamp comment '创建时间'")
+    private LocalDateTime createTime;
 
     @ApiModelProperty(value = "修改时间")
     @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
-    private LocalDate updateTime;
+    @Column(columnDefinition="timestamp default current_timestamp comment '修改时间'")
+    private LocalDateTime updateTime;
 
 }

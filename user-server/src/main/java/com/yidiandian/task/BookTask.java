@@ -22,7 +22,7 @@ public class BookTask {
     @Autowired
     private UserInfoService userInfoService;
 
-    @Scheduled(fixedRate = 1000)
+    @Scheduled(fixedRate = 1000*60)
     public void taskA(){
         saveAndFlash();
         System.out.println("当前时间："+System.currentTimeMillis()+"\n执行次数："+count++);
