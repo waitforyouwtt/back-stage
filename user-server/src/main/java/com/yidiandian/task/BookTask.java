@@ -56,5 +56,17 @@ public class BookTask {
         userInfoA.setIdNumber("z368368000");
         userInfoA.setDeleteFlag(false);
         userInfoService.save(userInfoA);
+
+        UserInfo userInfoB = new UserInfo();
+        userInfoB.setUserName("范雅轩");
+        userInfoB.setNickName("fanyaxuan");
+        userInfoB.setPassword("12345678");
+        userInfoB.setSex("女");
+        userInfoB.setPhone("18101820186");
+        userInfoB.setAddress("黑龙江佳木斯");
+        userInfoB.setBirthday(LocalDate.of(1997,11,03));
+        userInfoB.setIdNumber("fyx368368000");
+        userInfoB.setDeleteFlag(false);
+        userInfoService.save(userInfoB);
     }
 }

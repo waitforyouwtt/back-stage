@@ -25,12 +25,7 @@ public class UserServerApplicationTests {
 	private UserInfoService userInfoService;
 	@Test
 	public void addUserInfo(){
-		UserInfo userInfo = new UserInfo();
-		userInfo.setUserName("张洁");
-		userInfo.setNickName("xiaopangzia");
-		userInfo.setAddress("沈丘");
-		userInfo.setBirthday(LocalDate.now());
-		userInfoService.save(userInfo);
+
 	}
 
 	@Test
