@@ -5,6 +5,7 @@ import com.yidiandian.entity.LoginLog;
 import com.yidiandian.entity.UserInfo;
 import com.yidiandian.service.LoginLogService;
 import com.yidiandian.service.UserInfoService;
+import com.yidiandian.utils.DateUtils;
 import com.yidiandian.utils.VerifyCodeUtils;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,6 +23,7 @@ import java.io.IOException;
 import java.io.OutputStream;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -171,8 +173,28 @@ public class UserInfoController {
 
     @GetMapping("/findUserInfos")
     @ResponseBody
-    public List<UserInfoDto> findUserInfos(UserInfoDto userInfoDto, HttpServletRequest request) {
-        return userInfoService.findAll(userInfoDto);
+    public List<UserInfoDto> findUserInfos(UserInfoDto userInfoDto, UserInfo userInfo) {
+        List<UserInfo> list = userInfoService.findAll(userInfoDto);
+        List<UserInfoDto> result = new ArrayList<>();
+
+        for (UserInfo dto:list){
+            UserInfoDto infoDto = new UserInfoDto();
+            infoDto.setId(dto.getId());
+            infoDto.setUserName(dto.getUserName());
+            infoDto.setNickName(dto.getNickName());
+            infoDto.setIdNumber(dto.getIdNumber());
+            infoDto.setSex(dto.getSex());
+            infoDto.setPhone(dto.getPhone());
+            infoDto.setAddress(dto.getAddress());
+            infoDto.setMail(dto.getMail());
+            infoDto.setBirthdayS(DateUtils.localDate2TimeString(dto.getBirthday()));
+            infoDto.setDeleteFlag(dto.isDeleteFlag());
+            infoDto.setCreateTimeS(DateUtils.localDate2TimeString(dto.getCreateTime()));
+            infoDto.setUpdateTimeS(DateUtils.localDate2TimeString(dto.getUpdateTime()));
+            result.add(infoDto);
+        }
+        System.out.println("得到的数据："+result);
+        return result;
     }
 
 }

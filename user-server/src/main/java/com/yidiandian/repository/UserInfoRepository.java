@@ -35,5 +35,6 @@ public interface UserInfoRepository extends JpaRepository<UserInfo,Long>{
 
     List<UserInfo> findAllByUserNameAndNickNameAndAddress(String username,String nickname,String address);
 
-    List<UserInfoDto> findAll(Specification<UserInfoDto> params);
+    List<UserInfo> findAll(Specification<UserInfoDto> params);
+
 }

@@ -15,6 +15,8 @@ import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 import java.awt.print.Pageable;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -72,35 +74,35 @@ public class UserInfoServiceImpl implements UserInfoService {
     }
 
     @Override
-    public List<UserInfoDto> findAll(UserInfoDto userInfoDto) {
+    public List<UserInfo> findAll(UserInfoDto userInfoDto) {
 
         String timeStart = userInfoDto.getCreateTimeStart();
         String timeEnd = userInfoDto.getCreateTimeEnd();
-        String username = userInfoDto.getUsername();
 
-        List<UserInfoDto> resultList = null;
+        String userName = userInfoDto.getUserName();
+
+        List<UserInfo> resultList = null;
         Specification <UserInfoDto> querySpecifi = new Specification<UserInfoDto>() {
             @Override
             public Predicate toPredicate(Root<UserInfoDto> root, CriteriaQuery<?> criteriaQuery, CriteriaBuilder cb) {
                 List<Predicate> predicates = new ArrayList<>();
                 if (StringUtils.isNotBlank(timeStart)) {
                     //大于或等于传入时间
-                    predicates.add( cb.greaterThanOrEqualTo(root.get("createTime").as(String.class),timeStart ));
+                    predicates.add( cb.greaterThanOrEqualTo(root.get("createTime").as(String.class),timeStart.concat("00:00:00") ));
                 }
                 if (StringUtils.isNotBlank(timeEnd)) {
                     //小于或等于传入时间
-                    predicates.add( cb.lessThanOrEqualTo(root.get("createTime").as(String.class), timeEnd));
+                    predicates.add( cb.lessThanOrEqualTo(root.get("createTime").as(String.class), timeEnd.concat("23:59:59")));
                 }
-                if (StringUtils.isNotBlank(username)) {
+                if (StringUtils.isNotBlank(userName)) {
                     //模糊查找
-                    predicates.add(cb.like(root.get("username").as(String.class), "%" + username + "%"));
+                    predicates.add(cb.like(root.get("userName").as(String.class), "%" + userName + "%"));
                 }
                 // and到一起的话所有条件就是且关系，or就是或关系
                 return cb.and(predicates.toArray(new Predicate[predicates.size()]));
             }
         };
-        resultList = this.userInfoRepository.findAll(querySpecifi);
-        return resultList;
+        return this.userInfoRepository.findAll(querySpecifi);
     }
 
     @Override

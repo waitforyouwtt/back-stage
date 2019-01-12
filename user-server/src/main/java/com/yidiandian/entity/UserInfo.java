@@ -6,12 +6,15 @@ import lombok.Data;
 import lombok.ToString;
 import org.hibernate.annotations.ColumnDefault;
 import org.hibernate.validator.constraints.Email;
+import org.springframework.boot.autoconfigure.domain.EntityScan;
+import org.springframework.data.jpa.convert.threeten.Jsr310JpaConverters;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 import java.io.Serializable;
+import java.sql.Date;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 
@@ -24,6 +27,7 @@ import java.time.LocalDateTime;
 @Data
 @ToString
 @ApiModel(value = "用户信息表")
+@EntityScan(basePackageClasses = {Jsr310JpaConverters.class})
 public class UserInfo implements Serializable {
 
     private static final long serialVersionUID = 2474565371967135971L;
@@ -69,7 +73,8 @@ public class UserInfo implements Serializable {
 
     @ApiModelProperty(name = "用户生日")
     @DateTimeFormat(pattern  ="yyyy-MM-dd")
-    private LocalDate birthday;
+    @Column(columnDefinition="timestamp default current_timestamp comment '生日'")
+    private LocalDateTime birthday;
 
     @ApiModelProperty(name = "用户地址")
     @Size(min=1,max=20,message = "内容应该在5-20之间")

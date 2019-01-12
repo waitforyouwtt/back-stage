@@ -31,7 +31,7 @@ public interface UserInfoService {
      */
     List<UserInfo> findAll();
 
-    List<UserInfoDto> findAll(UserInfoDto userInfoDto);
+    List<UserInfo> findAll(UserInfoDto userInfoDto);
 
     void delete();
 
