@@ -1,0 +1,23 @@
+spring:
+  profiles:
+    active: native
+  application:
+    name: config-server
+  cloud:
+    config:
+      server:
+        native:
+          search-locations: classpath:/
+    consul:
+      host: 127.0.0.1
+      port: 1200
+      discovery:
+        tags: version=1.0,author=megaox
+        health-check-path: /info.json
+        health-check-interval: 5s
+        instance-id: ${spring.application.name}:${server.port}
+  http:
+    encoding:
+      enabled: true
+      force: true
+      charset: UTF-8
