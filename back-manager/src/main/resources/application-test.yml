@@ -9,6 +9,8 @@ spring:
     cache: false
 server:
   port: 8766
+  session:
+    timeout: 1
 eureka:
   instance:
     appname: back-manager

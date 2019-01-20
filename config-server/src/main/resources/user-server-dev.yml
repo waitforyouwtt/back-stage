@@ -2,9 +2,11 @@ server:
   port: 8762
 spring:
   application:
-    name: config-server
+    name: user-server
   cloud:
     config:
       server:
         git:
-          uri:
+          uri: https://github.com/waitforyouwtt/back-stage/tree/master/config-server
+          username: waitforyouwtt
+          password: wtt19940512577

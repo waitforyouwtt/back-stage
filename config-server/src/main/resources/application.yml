@@ -1,3 +1,8 @@
+server:
+  port: 8888
+  servlet:
+    context-path: /
+
 spring:
   profiles:
     active: native
@@ -5,17 +10,10 @@ spring:
     name: config-server
   cloud:
     config:
+      label: master
       server:
         native:
           search-locations: classpath:/
-    consul:
-      host: 127.0.0.1
-      port: 1200
-      discovery:
-        tags: version=1.0,author=megaox
-        health-check-path: /info.json
-        health-check-interval: 5s
-        instance-id: ${spring.application.name}:${server.port}
   http:
     encoding:
       enabled: true

@@ -50,6 +50,13 @@ public class UserInfoController {
     public String index(){
         return "index";
     }
+    @GetMapping("/addUser")
+    public String addUser(){
+        return "user-add";
+    }
+
+
+
     @ApiOperation(value = "生成验证码，返回给前端")
     @RequestMapping(value="/getImage",method= RequestMethod.GET)
     public void authImage(HttpServletRequest request, HttpServletResponse response) throws IOException {
@@ -146,7 +153,7 @@ public class UserInfoController {
             }
         }
         // 重定向到首页
-        response.sendRedirect(request.getContextPath() + "/index.html");
+        response.sendRedirect(request.getContextPath() + "/");
     }
 
     private void saveLoginLog(String nickname,HttpServletRequest request){
@@ -197,7 +204,6 @@ public class UserInfoController {
             infoDto.setUpdateTimeS(DateUtils.localDate2TimeString(dto.getUpdateTime()));
             result.add(infoDto);
         }
-        System.out.println("得到的数据："+result);
         return result;
     }
 
