@@ -1,0 +1,23 @@
+server:
+  port: 1003
+
+spring:
+  profiles:
+    active: dev
+  application:
+    name: user-service
+  cloud:
+    consul:
+      host: 127.0.0.1
+      port: 1200
+      discovery:
+        tags: version=1.0,author=megaox
+        health-check-path: /info.json
+        health-check-interval: 5s
+        instance-id: ${spring.application.name}:${server.port}
+    config:
+      uri: http://localhost:8761/
+      profile: dev
+
+logging:
+  config: classpath:logback-user-service.xml

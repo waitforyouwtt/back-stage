@@ -1,4 +1,1 @@
-spring:
-  cloud:
-    config:
-      profile: dev
+name: zhangjie
