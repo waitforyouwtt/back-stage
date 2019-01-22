@@ -7,6 +7,6 @@ spring:
     config:
       server:
         git:
-          uri: https://github.com/yuanzicheng/spring-cloud-config-repository.git
+          uri: https://github.com/waitforyouwtt/back-stage.git
           username: waitforyouwtt
           password: wtt19940512577
