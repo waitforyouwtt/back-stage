@@ -1,5 +1,3 @@
-server:
-  port: 8282
 spring:
   application:
-    name: service1 # 对应config-server获取的配置文件的{application}
+    name: user-server # 对应config-server获取的配置文件的{application}

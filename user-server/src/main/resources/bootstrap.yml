@@ -1,23 +1,8 @@
-server:
-  port: 1003
-
 spring:
-  profiles:
-    active: dev
   application:
-    name: user-service
+    name: user-server # 对应config-server获取的配置文件的{application}
   cloud:
-    consul:
-      host: 127.0.0.1
-      port: 1200
-      discovery:
-        tags: version=1.0,author=megaox
-        health-check-path: /info.json
-        health-check-interval: 5s
-        instance-id: ${spring.application.name}:${server.port}
     config:
-      uri: http://localhost:8761/
-      profile: dev
-
-logging:
-  config: classpath:logback-user-service.xml
+      uri: http://localhost:8181 # 对应config-server地址，默认值http://localhost:8888
+      profile: dev  # 对应config-server获取的配置文件的{profile}
+      label: master # 对应config-server获取的配置文件的{label}，即Git仓库分支
