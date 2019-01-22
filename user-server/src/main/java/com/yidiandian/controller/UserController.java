@@ -26,6 +26,9 @@ public class UserController {
     @Value("${server.port}")
     String port;
 
+    @Value("${profile}")
+    private String profile;
+
     @Autowired
     UserInfoService userInfoService;
     @Autowired
@@ -33,7 +36,7 @@ public class UserController {
 
     @GetMapping("/hi")
     public String home(@RequestParam String name){
-        return "hi:"+name+"how are you?"+port;
+        return "hi:"+name+"how are you?"+profile;
     }
 
 
