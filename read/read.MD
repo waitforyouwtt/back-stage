@@ -81,6 +81,46 @@
            3：启动网关服务
               java -jar .\zuul-server-0.0.1-SNAPSHOT.jar --server.port=5000
            4：浏览器访问[http://localhost:5000/v1/userapi/hi?name=jie&token=2345]
+           
+    21.配置中心：
+         引入jar: 
+                 <dependency>
+                     <groupId>org.springframework.cloud</groupId>
+                     <artifactId>spring-cloud-starter-config</artifactId>
+                     <version>1.4.4.RELEASE</version>
+                 </dependency>
+         
+                 <!--表示为web工程-->
+                 <dependency>
+                     <groupId>org.springframework.boot</groupId>
+                     <artifactId>spring-boot-starter-web</artifactId>
+                 </dependency>
+         
+                 <!--暴露各种指标  貌似是必须的  -->
+                 <dependency>
+                     <groupId>org.springframework.boot</groupId>
+                     <artifactId>spring-boot-starter-actuator</artifactId>
+                 </dependency>
+                  <dependency>
+                             <groupId>org.springframework.cloud</groupId>
+                             <artifactId>spring-cloud-config-server</artifactId>
+                             <version>1.4.4.RELEASE</version>
+                  </dependency>
+         application.yml:
+                  server:
+                    port: 8181
+                  spring:
+                    application:
+                      name: config-server
+                    cloud:
+                      config:
+                        server:
+                          git:
+                            uri: https://github.com/waitforyouwtt/back-stage.git
+                            username: waitforyouwtt
+                            password: wtt19940512577
+         [注意：git.uri 指的是这个项目的git 地址]
+         查看效果：[http://localhost:8181/service1/default] 或者[http://localhost:8181/service1/default/master]                                   
                   
                      
        
