@@ -26,17 +26,18 @@ public class UserController {
     @Value("${server.port}")
     String port;
 
-    @Value("${profile}")
-    private String profile;
-
     @Autowired
     UserInfoService userInfoService;
     @Autowired
     RedisDao redisDao;
+    @Value("${appusername}")
+    String appusername;
+    @Value("${declaration.love}")
+    String declarationLove;
 
     @GetMapping("/hi")
     public String home(@RequestParam String name){
-        return "hi:"+name+"how are you?"+profile;
+        return "hi:"+name+"how are you?"+appusername+" : "+declarationLove;
     }
 
 

@@ -32,4 +32,7 @@ eureka:
   client:
     serviceUrl:
       defaultZone: http://localhost:8761/eureka/
-profile: zhangjie
+
+appusername: xiaopangziaotuman
+declaration:
+  love: iloveyou
