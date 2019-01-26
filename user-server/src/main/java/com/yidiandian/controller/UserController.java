@@ -31,14 +31,10 @@ public class UserController {
     UserInfoService userInfoService;
     @Autowired
     RedisDao redisDao;
-    @Value("${appusername}")
-    String appusername;
-    @Value("${declaration.love}")
-    String declarationLove;
 
     @GetMapping("/hi")
     public String home(@RequestParam String name){
-        return "hi:"+name+"how are you?"+appusername+" : "+declarationLove;
+        return "hi:"+name+"how are you?"+port;
     }
 
 
