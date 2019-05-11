@@ -19,24 +19,24 @@
     $(function () {
 
         //弹出一个提示层
-        $('#test').on('click', function(){
+       /* $('#test').on('click', function(){
             layer.msg('hello');
-        });
+        });*/
 
 
         //弹出一个页面层
-        $('#test2').on('click', function(){
+        /*$('#test2').on('click', function(){
             layer.open({
                 type: 1,
                 area: ['600px', '360px'],
                 shadeClose: true, //点击遮罩关闭
                 content: '\<\div style="padding:20px;">自定义内容\<\/div>'
             });
-        });
+        });*/
 
 
         //弹出一个iframe层
-        $('#parentIframe').on('click', function(){
+      /*  $('#parentIframe').on('click', function(){
             layer.open({
                 type: 2,
                 title: 'iframe父子操作',
@@ -45,17 +45,17 @@
                 area : ['800px' , '520px'],
                 content: 'test/iframe.html'
             });
-        });
+        });*/
 
 
         //弹出一个loading层
-        $('#test4').on('click', function(){
+       /* $('#test4').on('click', function(){
             var ii = layer.load();
             //此处用setTimeout演示ajax的回调
             setTimeout(function(){
                 layer.close(ii);
             }, 1000);
-        });
+        });*/
 
 
         //弹出一个tips层
@@ -80,7 +80,18 @@
             var nickName = $("#nickName").val();
             var password = $("#password").val();
             var code= $("#code").val();
+            console.info("code 是："+code)
             var url = "/valid-login";
+            if(nickName == null || nickName == ""){
+                layer.tips('请输入用户名!', '#nickName');
+                return false;
+            }else if(password == null || password == ""){
+                layer.tips('请输入用户密码!', '#password');
+                return false;
+            }else if(code == null || code == ""){
+                layer.tips('请输入验证码!', '#code');
+                return false;
+            }
             $.ajax({
                 url : url,
                 type : 'get',
@@ -98,13 +109,13 @@
                         var url = "/index";
                         window.location.href=url;
                     }else if("1000" == code){
-                        layer.msg('hello');
+                        layer.msg(message);
                     }else if("1001" == code){
-                        layer.msg('hello');
+                        layer.msg(message);
                     }else if("1002" == code){
-                        layer.msg('hello');
+                        layer.msg(message);
                     }else if("1003" == code){
-                        layer.msg('hello');
+                        layer.msg(message);
                     }
                 }
             });
@@ -136,8 +147,8 @@
                   <div class="formControls col-xs-8 col-xs-offset-3">
                       <input class="input-text size-L" type="text" placeholder="验证码"
                              id="code"
-                             onblur="if(this.value==''){this.value='验证码:'}"
-                             onclick="if(this.value=='验证码:'){this.value='';}" value="验证码:" style="width:150px;">
+                             onblur="if(this.value==''){this.value=''}"
+                             onclick="if(this.value==''){this.value='';}"  style="width:150px;">
                       <img src="getImage"  name="code" id="imgCode"> <a id="changeImg" href="javascript:;">看不清，换一张</a></div>
               </div>
               <div class="row cl">

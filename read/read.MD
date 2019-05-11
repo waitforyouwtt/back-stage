@@ -64,6 +64,7 @@
        2.该类需要实现EurekaClientFeign接口.
        3.查看效果：
            1：启动一个eureka server 端口8761
+              java -jar .\eureka-server-0.0.1-SNAPSHOT.jar --server.port=8761
            2：启动两个eureka client 端口8762 8763 
               java -jar .\user-server-0.0.1-SNAPSHOT.jar --server.port=8762
               java -jar .\user-server-0.0.1-SNAPSHOT.jar --server.port=8763

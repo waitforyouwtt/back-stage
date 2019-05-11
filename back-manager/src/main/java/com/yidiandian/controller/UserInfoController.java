@@ -8,6 +8,7 @@ import com.yidiandian.service.UserInfoService;
 import com.yidiandian.utils.DateUtils;
 import com.yidiandian.utils.VerifyCodeUtils;
 import io.swagger.annotations.ApiOperation;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -183,8 +184,15 @@ public class UserInfoController {
     public List<UserInfoDto> findUserInfos(UserInfoDto userInfoDto, UserInfo userInfo) {
         List<UserInfo> list = userInfoService.findAll(userInfoDto);
         List<UserInfoDto> result = new ArrayList<>();
+        list.stream().forEach(userInfo1 -> {
+            UserInfoDto dto = new UserInfoDto();
+            BeanUtils.copyProperties(userInfo1,dto);
+            result.add(dto);
+        });
 
-        for (UserInfo dto:list){
+        converState(result);
+
+        /*for (UserInfo dto:list){
             UserInfoDto infoDto = new UserInfoDto();
             infoDto.setId(dto.getId());
             infoDto.setUserName(dto.getUserName());
@@ -203,8 +211,17 @@ public class UserInfoController {
             infoDto.setCreateTimeS(DateUtils.localDate2TimeString(dto.getCreateTime()));
             infoDto.setUpdateTimeS(DateUtils.localDate2TimeString(dto.getUpdateTime()));
             result.add(infoDto);
-        }
+        }*/
         return result;
     }
 
+    private void converState(List<UserInfoDto> list){
+      list.stream().forEach(userInfo -> {
+          if(userInfo.isDeleteFlag()){
+             /* userInfo.setDeleteFlag("启用");*/
+          }else{
+             /* userInfo.setDeleteFlag("禁用");*/
+          }
+      });
+    }
 }
